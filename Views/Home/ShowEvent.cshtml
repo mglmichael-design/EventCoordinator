@@ -1,0 +1,28 @@
+@model FunEvent
+<div class="d-flex justify-content-around">
+    <h1>Activity Center</h1>
+    <a href="/dashboard">Home</a>
+    <a href="/logout">Logout</a>
+</div>
+<div class="d-flex justify-content-around">
+    <h2>@Model.EventTitle</h1>
+    @if(Model.GuestList.Any(r => r.UserId == ViewBag.User.UserId))
+    {
+        <a href="/leave/@Model.FunEventId/@ViewBag.User.UserId" class="btn btn-outline-secondary">Leave</a>
+    }
+    else
+    {
+        <a href="/join/@Model.FunEventId/@ViewBag.User.UserId" class="btn btn-outline-secondary">Join</a>
+    }
+</div>
+
+<h3>Event Coordinator: @Model.Planner.Name</h3>
+<h3>Description: </h3>
+<p>@Model.EventDescription</p>
+<h3>Guests:</h3>
+<ul>
+    @foreach (Rsvp r in Model.GuestList)
+    {
+        <li class="list-group-item">@r.Guest.Name</li>
+    }
+</ul>

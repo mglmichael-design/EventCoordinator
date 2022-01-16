@@ -1,0 +1,47 @@
+@model FunEvent
+<div class="d-flex ">
+    <div class="p-2 flex-grow-1 ">
+        <h1>Dojo Activity Center</h1>
+    </div>
+    <div class="p-2">
+        <a href="/dashboard" >Home</a>
+    </div>
+    <div class="p-2">
+        <a href="/logout" >Logout</a>
+    </div>
+</div>
+<h1>Create an Activity</h1>
+<form action="/create/event" method="post" class="col-5 mx-auto">
+    <input type="hidden" asp-for="UserId" value="@ViewBag.User.UserId">
+    <div class="form-group">
+        <label asp-for="EventTitle"></label>
+        <input asp-for="EventTitle" class="form-control">
+        <span class="text-danger" asp-validation-for="EventTitle"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" class="form-control">
+        <span class="text-danger" asp-validation-for="EventDate"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EventDuration"></label>
+        <input asp-for="EventDuration" class="form-control">
+        <span class="text-danger" asp-validation-for="EventDuration"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EventDurationType"></label>
+        <select asp-for="EventDurationType"  class="form-control">
+            <option value="">-- Hour/Day --</option>
+            <option value="Hour">Hour</option>
+            <option value="Day">Day</option>
+        </select>
+        <span class="text-danger" asp-validation-for="EventDurationType"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EventDescription"></label>
+        <textarea rows="4" cols="50" asp-for="EventDescription" ></textarea>
+        <span class="text-danger" asp-validation-for="EventDescription"></span>
+    </div>
+    
+    <input type="submit" value="Create Activity" class="btn btn-success btn-outline-dark">
+</form>

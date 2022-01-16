@@ -1,0 +1,58 @@
+@model List<FunEvent>
+
+<div class="d-flex ">
+    <div class="p-2 flex-grow-1 ">
+        <h1>Activity Center</h1>
+    </div>
+    <div class="p-2">
+        <p class="text-center">Welcome, @ViewBag.User.Name</p>
+    </div>
+    <div class="p-2">
+        <a href="/logout" >Logout</a>
+    </div>
+</div>
+<br>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>No. of Participants</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(FunEvent e in Model)
+        {
+            <tr>
+                <td>
+                    <a href="/show/@e.FunEventId">@e.EventTitle</a>
+                </td>
+                    <td>@e.EventDate.ToString("MM/dd @ h:mm tt")</td>
+                <td>@e.EventDuration @e.EventDurationType</td>
+                <td>@e.Planner.Name</td>
+                <td>@e.GuestList.Count</td>
+                <td>
+                    @if(e.Planner.UserId == ViewBag.User.UserId)
+                    {
+                        <a href="/destroy/@e.FunEventId" >Cancel</a>
+                    }
+                    else
+                    {
+                        if(e.GuestList.Any(r => r.UserId == ViewBag.User.UserId))
+                        {
+                            <a href="/leave/@e.FunEventId/@ViewBag.User.UserId" >Leave</a>
+                        }
+                        else
+                        {
+                            <a href="/join/@e.FunEventId/@ViewBag.User.UserId" >Join</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/new/event" class="btn btn-primary btn-outline-dark"> Add New Activity</a>
